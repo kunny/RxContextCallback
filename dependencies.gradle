@@ -1,0 +1,16 @@
+ext {
+    minSdkVersion = 9
+    sampleMinSdkVersion = 14
+    compileSdkVersion = 23
+    targetSdkVersion = 23
+    buildToolsVersion = '23.0.2'
+
+    assertj = 'org.assertj:assertj-core:1.2.0'
+    assertjAndroid = 'com.squareup.assertj:assertj-android:1.0.0'
+    robolectric = 'org.robolectric:robolectric:3.0'
+    rxAndroid = 'io.reactivex:rxandroid:1.1.0'
+    rxBinding = 'com.jakewharton.rxbinding:rxbinding:0.3.0'
+    rxJava = 'io.reactivex:rxjava:1.1.1'
+    supportAnnotations = 'com.android.support:support-annotations:23.1.1'
+    supportAppCompat = 'com.android.support:appcompat-v7:23.1.1'
+}
