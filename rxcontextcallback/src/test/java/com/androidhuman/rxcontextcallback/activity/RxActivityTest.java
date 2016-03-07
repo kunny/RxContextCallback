@@ -45,6 +45,7 @@ public class RxActivityTest {
         s.unsubscribe();
 
         sub.assertNoErrors();
+        sub.assertCompleted();
         sub.assertValueCount(1);
 
         ActivityResultEvent ev = sub.getOnNextEvents().get(0);

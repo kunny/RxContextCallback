@@ -16,6 +16,8 @@
 
 package com.androidhuman.rxcontextcallback.activity;
 
+import com.jakewharton.rxrelay.PublishRelay;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.content.IntentSender;
@@ -23,20 +25,17 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import rx.Observable;
-import rx.subjects.PublishSubject;
-import rx.subjects.SerializedSubject;
-import rx.subjects.Subject;
 
 public final class RxActivity {
 
-    private static Subject<Object, Object> sBus;
+    private static PublishRelay<Object> sBus;
 
     public static Observable<ActivityResultEvent> startsActivityForResult(
             @NonNull Activity activity,
             @NonNull Intent intent, int requestCode) {
         initializeBusIfNeeded();
         activity.startActivityForResult(intent, requestCode);
-        return sBus.asObservable().ofType(ActivityResultEvent.class);
+        return sBus.asObservable().ofType(ActivityResultEvent.class).take(1);
     }
 
     public static Observable<ActivityResultEvent> startsIntentSenderForResult(
@@ -49,17 +48,17 @@ public final class RxActivity {
         } catch (IntentSender.SendIntentException e) {
             return Observable.error(e);
         }
-        return sBus.asObservable().ofType(ActivityResultEvent.class);
+        return sBus.asObservable().ofType(ActivityResultEvent.class).take(1);
     }
 
     public static void onActivityResult(int requestCode, int resultCode, Intent data) {
         initializeBusIfNeeded();
-        sBus.onNext(ActivityResultEvent.create(requestCode, resultCode, data));
+        sBus.call(ActivityResultEvent.create(requestCode, resultCode, data));
     }
 
     private static void initializeBusIfNeeded() {
         if (null == sBus) {
-            sBus = new SerializedSubject<>(PublishSubject.create());
+            sBus = PublishRelay.create();
         }
     }
 }

@@ -4,6 +4,7 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
     compile rootProject.ext.rxJava
+    compile rootProject.ext.rxRelay
     compile rootProject.ext.supportAnnotations
 
     testCompile rootProject.ext.assertj
