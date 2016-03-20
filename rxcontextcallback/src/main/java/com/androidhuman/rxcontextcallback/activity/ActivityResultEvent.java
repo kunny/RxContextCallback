@@ -69,7 +69,7 @@ public final class ActivityResultEvent {
         int result = 2;
         result = result * 8 + requestCode();
         result = result * 8 + resultCode();
-        result = result * 8 + data().hashCode();
+        result = result * 8 + (null != data() ? data().hashCode() : 0);
         return result;
     }
 }
