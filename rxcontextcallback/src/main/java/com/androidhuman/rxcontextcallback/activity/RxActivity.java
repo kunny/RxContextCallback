@@ -35,7 +35,7 @@ public final class RxActivity {
             @NonNull Intent intent, int requestCode) {
         initializeBusIfNeeded();
         activity.startActivityForResult(intent, requestCode);
-        return sBus.asObservable().ofType(ActivityResultEvent.class).take(1);
+        return sBus.asObservable().ofType(ActivityResultEvent.class);
     }
 
     public static Observable<ActivityResultEvent> startsIntentSenderForResult(
@@ -48,7 +48,7 @@ public final class RxActivity {
         } catch (IntentSender.SendIntentException e) {
             return Observable.error(e);
         }
-        return sBus.asObservable().ofType(ActivityResultEvent.class).take(1);
+        return sBus.asObservable().ofType(ActivityResultEvent.class);
     }
 
     public static void onActivityResult(int requestCode, int resultCode, Intent data) {
