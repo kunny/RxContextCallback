@@ -16,6 +16,7 @@
 
 package com.androidhuman.rxcontextcallback.activity;
 
+import com.androidhuman.rxcontextcallback.operators.OperatorTakeActivityResult;
 import com.jakewharton.rxrelay.PublishRelay;
 
 import android.app.Activity;
@@ -35,7 +36,8 @@ public final class RxActivity {
             @NonNull Intent intent, int requestCode) {
         initializeBusIfNeeded();
         activity.startActivityForResult(intent, requestCode);
-        return sBus.asObservable().ofType(ActivityResultEvent.class);
+        return sBus.asObservable().ofType(ActivityResultEvent.class)
+                .lift(new OperatorTakeActivityResult(requestCode));
     }
 
     public static Observable<ActivityResultEvent> startsIntentSenderForResult(
@@ -48,7 +50,8 @@ public final class RxActivity {
         } catch (IntentSender.SendIntentException e) {
             return Observable.error(e);
         }
-        return sBus.asObservable().ofType(ActivityResultEvent.class);
+        return sBus.asObservable().ofType(ActivityResultEvent.class)
+                .lift(new OperatorTakeActivityResult(requestCode));
     }
 
     public static void onActivityResult(int requestCode, int resultCode, Intent data) {
