@@ -8,7 +8,6 @@ ext {
     assertj = 'org.assertj:assertj-core:1.2.0'
     assertjAndroid = 'com.squareup.assertj:assertj-android:1.0.0'
     robolectric = 'org.robolectric:robolectric:3.0'
-    rxAndroid = 'io.reactivex:rxandroid:1.2.1'
     rxBinding = 'com.jakewharton.rxbinding:rxbinding:0.4.0'
     rxJava = 'io.reactivex:rxjava:1.1.6'
     rxRelay = 'com.jakewharton.rxrelay:rxrelay:1.1.0'
